@@ -37,11 +37,13 @@ With this script you can:
 2. If needed, align the reference object.
    - The new mesh should be aligned with the object it will replace (this can be done using reference images).
    - Alternatively, you can sometimes align the meshes by replacing hardcoded offsets in the executable (this is how the game aligns the meshes).
-3. Create a "frame" mesh.
+3. Create a frame mesh.
    - Create a plane object with size `1.5m`.
-   - Move/rotate the plane over the edge of imported image/path, so that the edge is in the middle of the plane.
-4. Triangulate the "frame" mesh.
-5. Fill the inner edge loop with triangle faces.
+   - Move/rotate the plane over the edge of the imported image/path, so that the edge is in the middle of the plane.
+   - Continue extending the frame mesh around the reference, while keeping the edge of the reference in the middle of the frame.
+   - Finally, close the frame by bridging the initial and final edges.
+4. Triangulate the frame mesh.
+5. Fill the inner edge loop of the frame mesh with triangle faces.
 6. Optionally, you can color the mesh in Vertex Paint mode.
    - Color is ignored by the game most of the time, but some meshes (e.g. those that appear white in-game) are rendered with vertex colors intact.
 7. Apply any modifications you've made to the mesh object (rotation, scale) and make sure the mesh origin is set to `(0, 0, 0)`.
