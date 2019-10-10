@@ -142,8 +142,12 @@ def import_plg(filepath):
 
     vcc, fcc, w = 0, 0, []
     for o in objs:
-        w.append(PLGO(o, verts[vcc:vcc + o.vc],
-            [fidxs[fcc:fcc + o.fc][k:k + o.n] for k in range(0, o.fc, o.n)]))
+        ov, of = [], []
+        if o.vc > 0:
+            ov = verts[vcc:vcc + o.vc]
+        if o.fc > 0 and o.n > 0:
+            of = [fidxs[fcc:fcc + o.fc][k:k + o.n] for k in range(0, o.fc, o.n)]
+        w.append(PLGO(o, ov, of))
         vcc, fcc = vcc + o.vc, fcc + o.fc
 
     return PLGF(sig, head, w)
