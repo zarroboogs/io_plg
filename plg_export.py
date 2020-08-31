@@ -12,7 +12,7 @@ def coll2plg(filepath, coll, mys, color = False):
         if obj.type != 'MESH':
             raise Exception("<{:s}> contains non-mesh objects".format(coll.name))
 
-    tmp = {}
+    tmp = []
     for obj in sorted(coll.all_objects, key=lambda o: o.name):
         bm = bmesh.new()
         bm.from_mesh(obj.data)
@@ -46,7 +46,7 @@ def coll2plg(filepath, coll, mys, color = False):
         if len(ngon) > 1:
             raise Exception("mixed face n-gons: " + str(ngon))
 
-        tmp[name] = ([plg.V10(**v) for v in verts], faces)
+        tmp.append((name, [plg.V10(**v) for v in verts], faces))
 
     plg.export_plg(filepath, plg.tmp2plgf(tmp, mys))
     return {'FINISHED'}

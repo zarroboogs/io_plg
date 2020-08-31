@@ -75,13 +75,12 @@ def tmp2plgf(tmp, mys):
     head['vdo'], head['fdo'] = s, s
     
     objs = []
-    for n, vf in tmp.items():
+    for name, verts, faces in tmp:
         obj, objsize = ODEFAULT[s]._asdict(), ODEFAULT[s].__size__
-        verts, faces = vf
-        obj['n'] = len(faces[0])
+        obj['n'] = len(faces[0]) if faces else 0
         obj['xm'], obj['ym'], obj['xM'], obj['yM'] = get_min_max(verts)
         obj['vc'], obj['fc'] = len(verts), len(faces) * obj['n']
-        obj['name'] = encode_name(n)
+        obj['name'] = encode_name(name)
         objs.append([obj, verts, faces])
 
         head['oc'] += 1
